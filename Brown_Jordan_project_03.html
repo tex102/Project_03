@@ -1,0 +1,541 @@
+<!doctype html>
+<html><head>
+    <meta charset="UTF-8">
+    <title>bounce.2 [Canvas]</title>
+  </head>
+<body>
+  <section>
+    <div>
+        <canvas id="canvas" width="1000" height="800"></canvas>
+    </div>
+
+<script type="text/javascript">
+var canvas,
+    context,
+    x = 0,
+    y = 0,
+    dx = 2,
+    dy = 4,
+    width = 1000,
+    height = 800; 
+    var timer,timer2,timer3;
+    var circles,triangles,hearts,stars;
+    var circleColor;
+    var trianglerandomx,trianglerandomy;
+    var heartrandomx, heartrandomy;
+    var starrandomx, starrandomy;
+    var colorrandom;
+    var motion;
+    var stopOne;
+    var stopTwo;
+
+ function creationNode() {
+  //create an array of particles for our animation
+  circles = [];
+  triangles = [];
+  hearts = [];
+  stars = [];
+
+  colorrandom = [];
+
+trianglerandomx = [];
+trianglerandomy = [];
+
+heartrandomx = [];
+heartrandomy = [];
+
+starrandomx = [];
+starrandomy = [];
+
+  for(var i = 0; i < 5; i++)
+  {
+    circles.push(new drawCircle());
+    triangles.push(new drawtriangle());
+    hearts.push(new drawheart());
+    stars.push(new drawStar());
+
+    trianglerandomx[i] = [Math.floor(Math.random()*9)];
+    trianglerandomy[i] = [Math.floor(Math.random()*9)];
+
+
+    heartrandomx[i] = [Math.floor(Math.random()*9)];
+    heartrandomy[i] = [Math.floor(Math.random()*9)];
+
+    starrandomx[i] = [Math.floor(Math.random()*9)];
+    starrandomy[i] = [Math.floor(Math.random()*9)];
+
+    colorrandom[i] = [Math.floor(Math.random()*8)];
+
+    console.log(trianglerandomx[i]);
+
+  }
+
+
+
+
+
+
+
+ }
+
+
+
+
+
+
+
+
+function drawtriangle(x, y) {
+
+  //var xstart = 200;
+  //var ystart = y;
+  //console.log(xstart);
+ 
+    //context.beginPath();
+   // context.moveTo(75,50);
+    //context.lineTo(100,75);
+    //context.lineTo(100,25);
+
+    //var colors = ["red", "yellow", "orange"];
+   //this.color = colors[Math.floor(Math.random()*colors.length)];
+
+    
+    //console.log(xstart);
+  }
+
+function drawheart(x, y) {
+/*
+var xstart = 300;
+var ystart = y;
+
+var x1, x2, x3;
+var y1, y2, y3;
+
+
+    // Quadratric curves example
+    context.beginPath();
+    context.moveTo(xstart,ystart);
+
+    var x1 = xstart;
+    var y1 = ystart - 3;
+    var x2 = x1 - 5;
+    var y2 = y1 - 12;
+    var x3 = x2 - 20;
+    var y3 = y2;
+
+    context.bezierCurveTo(x1,y1,x2,y2,x3,y3);
+    //context.bezierCurveTo(75,37,70,25,50,25);
+
+    var x1 = x3 - 30;
+    var y1 = y3;
+
+    var x2 = x1;
+    var y2 = y1 + 37.5;
+
+    var x3 = x2;
+    var y3 = y2;
+
+    context.bezierCurveTo(x1,y1,x2,y2,x3,y3);
+   // context.bezierCurveTo(20,25,20,62.5,20,62.5);
+
+    var x1 = x3;
+    var y1 = y3 + 17.5;
+
+    var x2 = x1 + 20;
+    var y2 = y1 + 22;
+
+    var x3 = x2 + 35;
+    var y3 = y2 + 18;
+
+   context.bezierCurveTo(x1,y1,x2,y2,x3,y3);
+    //context.bezierCurveTo(20,80,40,102,75,120);
+
+    var x1 = x3 + 35;
+    var y1 = y3 - 18;
+
+    var x2 = x1 + 20;
+    var y2 = y1 - 22;
+
+    var x3 = x2 ;
+    var y3 = y2 - 12.5;
+
+    context.bezierCurveTo(x1,y1,x2,y2,x3,y3);
+    //context.bezierCurveTo(110,102,130,80,130,62.5);
+
+    var x1 = x3 ;
+    var y1 = y3 ;
+
+    var x2 = x1 ;
+    var y2 = y1 - 37.5;
+
+    var x3 = x2 - 30 ;
+    var y3 = y2 ;
+
+    context.bezierCurveTo(x1,y1,x2,y2,x3,y3);
+    //context.bezierCurveTo(130,62.5,130,25,100,25);
+
+    var x1 = x3 -15 ;
+    var y1 = y3 ;
+
+    var x2 = x1 - 10 ;
+    var y2 = y1 + 12;
+
+    var x3 = x2 - 30 ;
+    var y3 = y2 + 3;
+
+    context.bezierCurveTo(x1,y1,x2,y2,x3,y3);
+    //context.bezierCurveTo(85,25,75,37,75,40);
+   context.fillStyle = 'blue';
+    context.fill();
+
+    */
+  }
+
+
+function drawStar(cx,cy,spikes,outerRadius,innerRadius){
+  /*
+      var rot=Math.PI/2*3;
+      var x=cx;
+      var y=cy;
+      var step=Math.PI/spikes;
+
+      context.strokeSyle="#000";
+      context.beginPath();
+      context.moveTo(cx,cy-outerRadius)
+      for(i=0;i<spikes;i++){
+        x=cx+Math.cos(rot)*outerRadius;
+        y=cy+Math.sin(rot)*outerRadius;
+        context.lineTo(x,y)
+        rot+=step
+
+        x=cx+Math.cos(rot)*innerRadius;
+        y=cy+Math.sin(rot)*innerRadius;
+        context.lineTo(x,y)
+        rot+=step
+      }
+      context.lineTo(cx,cy-outerRadius)
+      context.stroke();
+      context.closePath();
+         context.fillStyle = 'yellow';
+      context.fill();
+      */
+    }
+
+    
+
+function drawCircle(x,y,r) {
+
+//this.x = canvas.width*0.5;
+//this.y = canvas.height*0.5;
+
+//this.vx = Math.random()*300-5;
+//this.vy = Math.random()*10-5;
+
+   //var colors = ["red", "yellow", "orange"];
+   //this.color = colors[Math.floor(Math.random()*colors.length)];
+   this.radius = 30;
+   var slot = [100,200,300,400,500,600,700,800, 900];
+   this.vx = slot[Math.floor(Math.random()*slot.length)];
+   var slot2 = [100,200,300,400,500,600,700];
+   this.vy = slot2[Math.floor(Math.random()*slot2.length)];
+
+
+/*
+  context.beginPath();
+  context.arc(x, y, r, 0, Math.PI*2, true);
+  context.fill();
+  */
+}
+function drawRect(x,y,w,h) {
+  context.beginPath();
+  context.rect(x,y,w,h);
+  context.closePath();
+  context.fill();
+}
+/*
+function start() {
+  canvas = document.getElementById("canvas");
+  context = canvas.getContext("2d");
+  return setInterval(draw, 10);
+}
+*/
+function draw() {
+  context.clearRect(0, 0, width, height);
+  context.fillStyle = "black";
+  drawRect(0,0, width, height);
+  //context.fillStyle = "white";
+  var xslot;
+  var yslot;
+
+ for(var i = 0; i < circles.length; i++)
+   {
+     var c = circles[i];
+context.globalCompositeOperation = "lighter";
+
+
+    var colors = ["white", "red", "red", "orange", "blue", "purple","green"];
+   //this.color = colors[Math.floor(Math.random()*colors.length)];
+
+
+
+var cn = colorrandom[i];
+
+
+
+     
+     //console.log(xslot);
+      context.beginPath();
+      context.arc((c.vx), (y+ c.vy), 30, 0, Math.PI*2, true);
+      context.fillStyle = colors[cn];
+      context.fill();
+
+      c.y += c.vy;
+
+
+
+      var t = triangles[i];
+      var tx = trianglerandomx[i];
+      var ty = trianglerandomy[i];
+
+      var hx = heartrandomx[i];
+      var hy = heartrandomy[i];
+
+var slot = [50,150,200,250,300,350,400,450, 500];
+var slot2 = [ 25,50,75,100,125,150,175,200,225]
+
+var xstart = (x +slot[tx]);
+var ystart = (y + slot2[ty]);
+
+
+context.beginPath();
+    context.moveTo(xstart,ystart);
+    var xstart = xstart+25;
+    var ystart = ystart +25;
+    context.lineTo(xstart, ystart);
+    var ystart = ystart - 50;
+    context.lineTo(xstart, ystart);
+    context.fillStyle = colors[cn];
+    context.fill();
+
+
+
+
+
+
+
+ var xstart = 200;
+  var ystart = y;
+  //console.log(xstart);
+ 
+    //context.beginPath();
+   // context.moveTo(75,50);
+    //context.lineTo(100,75);
+    //context.lineTo(100,25);
+
+
+
+    
+    //console.log(xstart);
+  
+
+
+
+var xstart = (x + slot[hx]);
+var ystart = (y + slot2[hy]);
+
+var x1, x2, x3;
+var y1, y2, y3;
+
+
+    // Quadratric curves example
+    context.beginPath();
+    context.moveTo(xstart,ystart);
+
+    var x1 = xstart;
+    var y1 = ystart - 3;
+    var x2 = x1 - 5;
+    var y2 = y1 - 12;
+    var x3 = x2 - 20;
+    var y3 = y2;
+
+    context.bezierCurveTo(x1,y1,x2,y2,x3,y3);
+    //context.bezierCurveTo(75,37,70,25,50,25);
+
+    var x1 = x3 - 30;
+    var y1 = y3;
+
+    var x2 = x1;
+    var y2 = y1 + 37.5;
+
+    var x3 = x2;
+    var y3 = y2;
+
+    context.bezierCurveTo(x1,y1,x2,y2,x3,y3);
+   // context.bezierCurveTo(20,25,20,62.5,20,62.5);
+
+    var x1 = x3;
+    var y1 = y3 + 17.5;
+
+    var x2 = x1 + 20;
+    var y2 = y1 + 22;
+
+    var x3 = x2 + 35;
+    var y3 = y2 + 18;
+
+   context.bezierCurveTo(x1,y1,x2,y2,x3,y3);
+    //context.bezierCurveTo(20,80,40,102,75,120);
+
+    var x1 = x3 + 35;
+    var y1 = y3 - 18;
+
+    var x2 = x1 + 20;
+    var y2 = y1 - 22;
+
+    var x3 = x2 ;
+    var y3 = y2 - 12.5;
+
+    context.bezierCurveTo(x1,y1,x2,y2,x3,y3);
+    //context.bezierCurveTo(110,102,130,80,130,62.5);
+
+    var x1 = x3 ;
+    var y1 = y3 ;
+
+    var x2 = x1 ;
+    var y2 = y1 - 37.5;
+
+    var x3 = x2 - 30 ;
+    var y3 = y2 ;
+
+    context.bezierCurveTo(x1,y1,x2,y2,x3,y3);
+    //context.bezierCurveTo(130,62.5,130,25,100,25);
+
+    var x1 = x3 -15 ;
+    var y1 = y3 ;
+
+    var x2 = x1 - 10 ;
+    var y2 = y1 + 12;
+
+    var x3 = x2 - 30 ;
+    var y3 = y2 + 3;
+
+    context.bezierCurveTo(x1,y1,x2,y2,x3,y3);
+    //context.bezierCurveTo(85,25,75,37,75,40);
+   context.fillStyle = colors[cn];
+    context.fill();
+
+
+
+      var sx = starrandomx[i];
+      var sy = starrandomy[i];
+
+
+var cx = (x + slot[sx]);
+var cy = (y + slot2[sy]);
+
+/*
+var rot=Math.PI/2*3;
+
+var spikes = 12;
+var outerRadius = 30;
+var innerRadius = 15;
+
+      var xstar=cx;
+      var ystar=cy;
+      var step=Math.PI/spikes;
+
+      context.strokeSyle="#000";
+      context.beginPath();
+      context.moveTo(cx,cy-outerRadius)
+      for(i=0;i<spikes;i++){
+        xstar=cx+Math.cos(rot)*outerRadius;
+        ystar=cy+Math.sin(rot)*outerRadius;
+        context.lineTo(xstar,ystar)
+        rot+=step
+
+        xstar=cx+Math.cos(rot)*innerRadius;
+        ystar=cy+Math.sin(rot)*innerRadius;
+        context.lineTo(xstar,ystar)
+        rot+=step
+      }
+      context.lineTo(cx,cy-outerRadius)
+      context.stroke();
+      context.closePath();
+         context.fillStyle = 'color';
+      context.fill();
+
+
+*/
+
+
+
+
+
+   }
+  if (x + dx > width || x + dx < 0)
+    dx = -dx;
+  if (y + dy > height || y + dy < 0)
+    dy = -dy;
+  x += dx;
+  y += dy;
+
+
+
+
+  //drawtriangle(x, y, 20); // make sure to redo the X cords for all of these 
+  //drawheart(x, y, 20);	
+ //drawStar(400,y,12,30,15);
+
+
+}
+var i, n = 0,
+            components = [0, 0, 0], 
+            operations = [1, 2, 3];
+
+function write(){
+          //context.clearRect(0, 0, 500, 300);
+          context.fillStyle = "rgb("+components.join(',')+")";
+          context.textBaseline = 'top';
+          
+          // Jumping text
+          context.save();
+            context.translate(500, 0);
+            context.fillText('The Bees! Oh god, not the bees!', 0, components[1]);
+          context.restore();
+          
+          // Rotating text
+          context.save();
+            context.translate(250, 150);
+            context.rotate(0.09*n++);
+            context.fillStyle = 'white';
+            context.textBaseline = 'middle';
+            context.fillText('The bees! AAAAhhhhhhhh!', 0, 0);
+          context.restore();
+          
+          for(i = 0; i < 3; i++) {
+            components[i] += operations[i];
+            if ((components[i] >= 256) || (components[i] <= 0)) operations[i] *= -1;
+          }
+          
+          /*if (n < 1000)*/ setTimeout(draw, 10);
+        }
+
+
+
+window.onload = function() {
+  canvas = document.getElementById("canvas");
+  context = canvas.getContext("2d");
+  creationNode();
+  timer = setInterval(draw, 20); 
+  timer2 = setInterval(write,20);
+
+  stopOne = 0;
+    stopTwo = 1;
+    timer3 = setInterval(shiftGradient, 100);
+  
+ }
+
+</script>
+
+  </section>
+
+</body></html>
