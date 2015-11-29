@@ -12,101 +12,96 @@
 <script type="text/javascript">
 var canvas,
     context,
-    x = 0,
-    y = 0,
-    dx = 2,
-    dy = 4,
     width = 1000,
     height = 800; 
-    var timer,timer2,timer3;
-    var circles,triangles,hearts,stars;
+    var timer, timer_02;
+    var shapesIndex = [1, 2, 3, 4];
+    var color = ['red', 'green', 'blue', 'yellow', 'pink', 'purple']
+    var circles = [],triangles = [],hearts = [],stars = [];
     var circleColor;
-    var trianglerandomx,trianglerandomy;
-    var heartrandomx, heartrandomy;
-    var starrandomx, starrandomy;
-    var colorrandom;
-    var motion;
-    var stopOne;
-    var stopTwo;
+    var shape;
+    var xv, yv;
+  
 
- function creationNode() {
+ function creationNode(x, y, color, shape) {
   //create an array of particles for our animation
-  circles = [];
-  triangles = [];
-  hearts = [];
-  stars = [];
+  this.x = x;
+  this.y = y;
+  this.size = 30;
+  this.xv = Math.random()*10-5;
+  this.yv = Math.random()*10-5;
+  this.color = color;
+  this.shape = shape;
+ }
 
-  colorrandom = [];
+function factory (){
+  console.log("factory call ---------------------------------------");
+  var x = Math.random()* width;
+  var y = Math.random()* height;
 
-trianglerandomx = [];
-trianglerandomy = [];
+  var shapeNum = Math.floor(Math.random()*5);
+  var colorNum = Math.floor(Math.random()*6);
+  var color = ['red', 'green', 'blue', 'yellow', 'pink', 'purple']
 
-heartrandomx = [];
-heartrandomy = [];
+console.log(" shapeNum");
+console.log("colorNum");
+console.log(colorNum);
+  if ( shapeNum == 1){
+    circles.push(new creationNode(x, y,color[colorNum],shapeNum))
+    console.log("circle pushed")
+  } 
+  else if ( shapeNum == 2){
+    triangles.push(new creationNode(x, y,color[colorNum],shapeNum))
+  }
+  else if ( shapeNum == 3){
+    hearts.push(new creationNode(x, y,color[colorNum],shapeNum))
+  }
+  else if ( shapeNum == 4){
+    stars.push(new creationNode(x, y,color[colorNum],shapeNum))
+  }
+}
 
-starrandomx = [];
-starrandomy = [];
 
-  for(var i = 0; i < 5; i++)
-  {
-    circles.push(new drawCircle());
-    triangles.push(new drawtriangle());
-    hearts.push(new drawheart());
-    stars.push(new drawStar());
-
-    trianglerandomx[i] = [Math.floor(Math.random()*9)];
-    trianglerandomy[i] = [Math.floor(Math.random()*9)];
-
-
-    heartrandomx[i] = [Math.floor(Math.random()*9)];
-    heartrandomy[i] = [Math.floor(Math.random()*9)];
-
-    starrandomx[i] = [Math.floor(Math.random()*9)];
-    starrandomy[i] = [Math.floor(Math.random()*9)];
-
-    colorrandom[i] = [Math.floor(Math.random()*8)];
-
-    console.log(trianglerandomx[i]);
-
+  function degreesToRadians(degrees) {
+    //converts from degrees to radians and returns
+    return (degrees * Math.PI)/180;
   }
 
 
 
+function drawtriangle(triangle) {
 
 
+  var xstart = triangle.x;
+  var ystart = triangle.y;
+ /*
+   context.beginPath();
+   context.moveTo(x, y); 
 
-
- }
-
-
-
-
-
-
-
-
-function drawtriangle(x, y) {
-
-  //var xstart = 200;
-  //var ystart = y;
-  //console.log(xstart);
- 
-    //context.beginPath();
-   // context.moveTo(75,50);
-    //context.lineTo(100,75);
-    //context.lineTo(100,25);
-
-    //var colors = ["red", "yellow", "orange"];
-   //this.color = colors[Math.floor(Math.random()*colors.length)];
-
-    
+   context.lineTo((x + 25),(y + 25));
+   context.lineTo(x,(y - 50));
+   context.fillStyle = triangle.color;
+   context.fill();
+*/
+context.beginPath();
+    context.moveTo(xstart,ystart);
+    var xstart = xstart+25;
+    var ystart = ystart +25;
+    context.lineTo(xstart, ystart);
+    var ystart = ystart - 50;
+    context.lineTo(xstart, ystart);
+    context.fillStyle = triangle.color;
+    context.fill();
+  
     //console.log(xstart);
   }
 
-function drawheart(x, y) {
-/*
-var xstart = 300;
-var ystart = y;
+function drawheart(heart) {
+console.log(" heart drawn function");
+var x = heart.x;
+var y = heart.y;
+console.log(x);
+console.log(y);
 
 var x1, x2, x3;
 var y1, y2, y3;
@@ -114,10 +109,10 @@ var y1, y2, y3;
 
     // Quadratric curves example
     context.beginPath();
-    context.moveTo(xstart,ystart);
+    context.moveTo(x,y);
 
-    var x1 = xstart;
-    var y1 = ystart - 3;
+    var x1 = x;
+    var y1 = y - 3;
     var x2 = x1 - 5;
     var y2 = y1 - 12;
     var x3 = x2 - 20;
@@ -185,15 +180,24 @@ var y1, y2, y3;
 
     context.bezierCurveTo(x1,y1,x2,y2,x3,y3);
     //context.bezierCurveTo(85,25,75,37,75,40);
-   context.fillStyle = 'blue';
+   context.fillStyle = heart.color;
     context.fill();
-
-    */
   }
 
 
-function drawStar(cx,cy,spikes,outerRadius,innerRadius){
-  /*
+function drawStar(star){
+
+  var spikes = 7;
+  var outerRadius = 30;
+  var innerRadius = 15;
+
+
+
+      var cx = star.x;
+      var cy = star.y;
+
+
+
       var rot=Math.PI/2*3;
       var x=cx;
       var y=cy;
@@ -216,14 +220,14 @@ function drawStar(cx,cy,spikes,outerRadius,innerRadius){
       context.lineTo(cx,cy-outerRadius)
       context.stroke();
       context.closePath();
-         context.fillStyle = 'yellow';
+         context.fillStyle = star.color;
       context.fill();
-      */
     }
 
     
 
-function drawCircle(x,y,r) {
+function drawCircle(circle) {
+console.log("drawcircle");
 
 //this.x = canvas.width*0.5;
 //this.y = canvas.height*0.5;
@@ -231,20 +235,17 @@ function drawCircle(x,y,r) {
 //this.vx = Math.random()*300-5;
 //this.vy = Math.random()*10-5;
 
-   //var colors = ["red", "yellow", "orange"];
-   //this.color = colors[Math.floor(Math.random()*colors.length)];
-   this.radius = 30;
-   var slot = [100,200,300,400,500,600,700,800, 900];
-   this.vx = slot[Math.floor(Math.random()*slot.length)];
-   var slot2 = [100,200,300,400,500,600,700];
-   this.vy = slot2[Math.floor(Math.random()*slot2.length)];
+  // var colors = ["red", "yellow", "orange"];
+  // this.color = colors[Math.floor(Math.random()*colors.length)];
+ //  this.radius = 30;
 
 
-/*
-  context.beginPath();
-  context.arc(x, y, r, 0, Math.PI*2, true);
-  context.fill();
-  */
+
+     context.beginPath();
+     context.arc(circle.x, circle.y, 30, 0, degreesToRadians(360), true);
+     context.fillStyle = circle.color;
+     context.fill();
+  
 }
 function drawRect(x,y,w,h) {
   context.beginPath();
@@ -252,273 +253,97 @@ function drawRect(x,y,w,h) {
   context.closePath();
   context.fill();
 }
-/*
-function start() {
-  canvas = document.getElementById("canvas");
-  context = canvas.getContext("2d");
-  return setInterval(draw, 10);
+function drawText() {
+  context.fillStyle = 'white';
+  context.font = 'bold 2em sans-serif';
+  context.textAlign = 'right';
+  context.fillText('circles:' + circles.length, canvas.width-850, canvas.height-40);
+  context.fillText('triangles:' + triangles.length, canvas.width-815, canvas.height-80);
+  context.fillText('hearts:' + hearts.length, canvas.width-850, canvas.height-120);
+  context.fillText('stars:' + stars.length, canvas.width-875, canvas.height-160);  
 }
-*/
 function draw() {
-  context.clearRect(0, 0, width, height);
+  
   context.fillStyle = "black";
   drawRect(0,0, width, height);
-  //context.fillStyle = "white";
-  var xslot;
-  var yslot;
-
- for(var i = 0; i < circles.length; i++)
-   {
-     var c = circles[i];
-context.globalCompositeOperation = "lighter";
-
-
-    var colors = ["white", "red", "red", "orange", "blue", "purple","green"];
-   //this.color = colors[Math.floor(Math.random()*colors.length)];
-
-
-
-var cn = colorrandom[i];
-
-
-
-     
-     //console.log(xslot);
-      context.beginPath();
-      context.arc((c.vx), (y+ c.vy), 30, 0, Math.PI*2, true);
-      context.fillStyle = colors[cn];
-      context.fill();
-
-      c.y += c.vy;
-
-
-
-      var t = triangles[i];
-      var tx = trianglerandomx[i];
-      var ty = trianglerandomy[i];
-
-      var hx = heartrandomx[i];
-      var hy = heartrandomy[i];
-
-var slot = [50,150,200,250,300,350,400,450, 500];
-var slot2 = [ 25,50,75,100,125,150,175,200,225]
-
-var xstart = (x +slot[tx]);
-var ystart = (y + slot2[ty]);
-
-
-context.beginPath();
-    context.moveTo(xstart,ystart);
-    var xstart = xstart+25;
-    var ystart = ystart +25;
-    context.lineTo(xstart, ystart);
-    var ystart = ystart - 50;
-    context.lineTo(xstart, ystart);
-    context.fillStyle = colors[cn];
-    context.fill();
-
-
-
-
-
-
-
- var xstart = 200;
-  var ystart = y;
-  //console.log(xstart);
- 
-    //context.beginPath();
-   // context.moveTo(75,50);
-    //context.lineTo(100,75);
-    //context.lineTo(100,25);
-
-
-
-    
-    //console.log(xstart);
-  
-
-
-
-var xstart = (x + slot[hx]);
-var ystart = (y + slot2[hy]);
-
-var x1, x2, x3;
-var y1, y2, y3;
-
-
-    // Quadratric curves example
-    context.beginPath();
-    context.moveTo(xstart,ystart);
-
-    var x1 = xstart;
-    var y1 = ystart - 3;
-    var x2 = x1 - 5;
-    var y2 = y1 - 12;
-    var x3 = x2 - 20;
-    var y3 = y2;
-
-    context.bezierCurveTo(x1,y1,x2,y2,x3,y3);
-    //context.bezierCurveTo(75,37,70,25,50,25);
-
-    var x1 = x3 - 30;
-    var y1 = y3;
-
-    var x2 = x1;
-    var y2 = y1 + 37.5;
-
-    var x3 = x2;
-    var y3 = y2;
-
-    context.bezierCurveTo(x1,y1,x2,y2,x3,y3);
-   // context.bezierCurveTo(20,25,20,62.5,20,62.5);
-
-    var x1 = x3;
-    var y1 = y3 + 17.5;
-
-    var x2 = x1 + 20;
-    var y2 = y1 + 22;
-
-    var x3 = x2 + 35;
-    var y3 = y2 + 18;
-
-   context.bezierCurveTo(x1,y1,x2,y2,x3,y3);
-    //context.bezierCurveTo(20,80,40,102,75,120);
-
-    var x1 = x3 + 35;
-    var y1 = y3 - 18;
-
-    var x2 = x1 + 20;
-    var y2 = y1 - 22;
-
-    var x3 = x2 ;
-    var y3 = y2 - 12.5;
-
-    context.bezierCurveTo(x1,y1,x2,y2,x3,y3);
-    //context.bezierCurveTo(110,102,130,80,130,62.5);
-
-    var x1 = x3 ;
-    var y1 = y3 ;
-
-    var x2 = x1 ;
-    var y2 = y1 - 37.5;
-
-    var x3 = x2 - 30 ;
-    var y3 = y2 ;
-
-    context.bezierCurveTo(x1,y1,x2,y2,x3,y3);
-    //context.bezierCurveTo(130,62.5,130,25,100,25);
-
-    var x1 = x3 -15 ;
-    var y1 = y3 ;
-
-    var x2 = x1 - 10 ;
-    var y2 = y1 + 12;
-
-    var x3 = x2 - 30 ;
-    var y3 = y2 + 3;
-
-    context.bezierCurveTo(x1,y1,x2,y2,x3,y3);
-    //context.bezierCurveTo(85,25,75,37,75,40);
-   context.fillStyle = colors[cn];
-    context.fill();
-
-
-
-      var sx = starrandomx[i];
-      var sy = starrandomy[i];
-
-
-var cx = (x + slot[sx]);
-var cy = (y + slot2[sy]);
-
-/*
-var rot=Math.PI/2*3;
-
-var spikes = 12;
-var outerRadius = 30;
-var innerRadius = 15;
-
-      var xstar=cx;
-      var ystar=cy;
-      var step=Math.PI/spikes;
-
-      context.strokeSyle="#000";
-      context.beginPath();
-      context.moveTo(cx,cy-outerRadius)
-      for(i=0;i<spikes;i++){
-        xstar=cx+Math.cos(rot)*outerRadius;
-        ystar=cy+Math.sin(rot)*outerRadius;
-        context.lineTo(xstar,ystar)
-        rot+=step
-
-        xstar=cx+Math.cos(rot)*innerRadius;
-        ystar=cy+Math.sin(rot)*innerRadius;
-        context.lineTo(xstar,ystar)
-        rot+=step
-      }
-      context.lineTo(cx,cy-outerRadius)
-      context.stroke();
-      context.closePath();
-         context.fillStyle = 'color';
-      context.fill();
-
-
-*/
-
-
-
-
-
-   }
-  if (x + dx > width || x + dx < 0)
-    dx = -dx;
-  if (y + dy > height || y + dy < 0)
-    dy = -dy;
-  x += dx;
-  y += dy;
-
-
-
-
-  //drawtriangle(x, y, 20); // make sure to redo the X cords for all of these 
-  //drawheart(x, y, 20);	
- //drawStar(400,y,12,30,15);
-
+console.log("draw");
+console.log(" how many circles " + circles.length);
+console.log(" how many triangles " + triangles.length);
+console.log(" how many hearts " + hearts.length);
+console.log(" how many stars " + stars.length);
+
+for ( var i=0; i<circles.length;i++){
+  drawCircle(circles[i]);
+console.log("circle drawn");
+  if (circles[i].x + circles[i].xv > canvas.width || circles[i].x + circles[i].xv < 0)
+  circles[i].xv = -circles[i].xv;
+
+  if (circles[i].x + circles[i].yv > canvas.width || circles[i].x + circles[i].yv < 0)
+  circles[i].yv = -circles[i].yv;
+
+      if (circles[i].x + circles[i].xv > canvas.width || circles[i].x + circles[i].xv < 0)
+        circles[i].xv = -circles[i].xv;
+      if (circles[i].y + circles[i].yv > canvas.height || circles[i].y + circles[i].yv < 0)
+        circles[i].yv = -circles[i].yv;
+        circles[i].x += circles[i].xv;
+        circles[i].y += circles[i].yv;
+}
+for ( var i=0; i<triangles.length;i++){
+  drawtriangle(triangles[i]);
+console.log("triangles drawn");
+
+  if (triangles[i].x + triangles[i].xv > canvas.width || triangles[i].x + triangles[i].xv < 0)
+  triangles[i].xv = -triangles[i].xv;  
+
+  if (triangles[i].x + triangles[i].yv > canvas.width || triangles[i].x + triangles[i].yv < 0)
+  triangles[i].yv = -triangles[i].yv;
+
+      if (triangles[i].x + triangles[i].xv > canvas.width || triangles[i].x + triangles[i].xv < 0)
+        triangles[i].xv = -triangles[i].xv;
+      if (triangles[i].y + triangles[i].yv > canvas.height || triangles[i].y + triangles[i].yv < 0)
+        triangles[i].yv = -triangles[i].yv;
+        triangles[i].x += triangles[i].xv;
+        triangles[i].y += triangles[i].yv;
 
 }
-var i, n = 0,
-            components = [0, 0, 0], 
-            operations = [1, 2, 3];
+for ( var i=0; i<hearts.length;i++){
+  drawheart(hearts[i]);
+console.log("hearts drawn");
 
-function write(){
-          //context.clearRect(0, 0, 500, 300);
-          context.fillStyle = "rgb("+components.join(',')+")";
-          context.textBaseline = 'top';
-          
-          // Jumping text
-          context.save();
-            context.translate(500, 0);
-            context.fillText('The Bees! Oh god, not the bees!', 0, components[1]);
-          context.restore();
-          
-          // Rotating text
-          context.save();
-            context.translate(250, 150);
-            context.rotate(0.09*n++);
-            context.fillStyle = 'white';
-            context.textBaseline = 'middle';
-            context.fillText('The bees! AAAAhhhhhhhh!', 0, 0);
-          context.restore();
-          
-          for(i = 0; i < 3; i++) {
-            components[i] += operations[i];
-            if ((components[i] >= 256) || (components[i] <= 0)) operations[i] *= -1;
-          }
-          
-          /*if (n < 1000)*/ setTimeout(draw, 10);
-        }
+  if (hearts[i].x + hearts[i].xv > canvas.width || hearts[i].x + hearts[i].xv < 0)
+  hearts[i].xv = -hearts[i].xv;
 
+  if (hearts[i].x + hearts[i].yv > canvas.width || hearts[i].x + hearts[i].yv < 0)
+  hearts[i].yv = -hearts[i].yv;
+
+      if (hearts[i].x + hearts[i].xv > canvas.width || hearts[i].x + hearts[i].xv < 0)
+        hearts[i].xv = -hearts[i].xv;
+      if (hearts[i].y + hearts[i].yv > canvas.height || hearts[i].y + hearts[i].yv < 0)
+        hearts[i].yv = -hearts[i].yv;
+        hearts[i].x += hearts[i].xv;
+        hearts[i].y += hearts[i].yv;
+
+}
+for ( var i=0; i<stars.length;i++){
+  drawStar(stars[i]);
+console.log("stars drawn");
+
+  if (stars[i].x + stars[i].xv > canvas.width || stars[i].x + stars[i].xv < 0)
+  stars[i].xv = -stars[i].xv;
+
+  if (stars[i].x + stars[i].yv > canvas.width || stars[i].x + stars[i].yv < 0)
+  stars[i].yv = -stars[i].yv;
+
+
+      if (stars[i].x + stars[i].xv > canvas.width || stars[i].x + stars[i].xv < 0)
+        stars[i].xv = -stars[i].xv;
+      if (stars[i].y + stars[i].yv > canvas.height || stars[i].y + stars[i].yv < 0)
+        stars[i].yv = -stars[i].yv;
+        stars[i].x += stars[i].xv;
+        stars[i].y += stars[i].yv;
+}
+    drawText();    
+}
 
 
 window.onload = function() {
@@ -526,12 +351,8 @@ window.onload = function() {
   context = canvas.getContext("2d");
   creationNode();
   timer = setInterval(draw, 20); 
-  timer2 = setInterval(write,20);
-
-  stopOne = 0;
-    stopTwo = 1;
-    timer3 = setInterval(shiftGradient, 100);
-  
+  timer = setInterval(factory, 1000);
+  console.log("log");
  }
 
 </script>
